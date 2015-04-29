@@ -10,15 +10,18 @@ import sys
 
 class inventory(object):
 
-    entry = {"cluster": "",
-             "host": "",
-             "label": "",
-             "service": "",
-             "project": "",
-             "owners": "",
-             "comment": ""}
+    order = ["cluster",
+             "host",
+             "label",
+             "service",
+             "project",
+             "owners",
+             "comment"]
 
-
+    entry = {}
+    for key in order:
+        entry[key] = ""
+        
     def __init__(self):
         self.data = {}
         pass
