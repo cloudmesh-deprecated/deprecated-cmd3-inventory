@@ -19,7 +19,11 @@ class cm_shell_system:
         ::
 
           Usage:
-              system add NAMES [--label=LABEL] [--service=SERVICES] [--project=PROJECT] [--owners=OWNERS] [--comment=COMMENT]
+              system add NAMES [--label=LABEL]
+                               [--service=SERVICES]
+                               [--project=PROJECT]
+                               [--owners=OWNERS]
+                               [--comment=COMMENT]
               system list [NAMES] [--format=FORMAT]
 
           Arguments:
