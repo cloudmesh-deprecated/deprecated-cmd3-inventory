@@ -1,19 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.0"
-
-
-requirements = [
-    'future',
-    'sh',
-    'docopt',
-    'pyaml',
-    'simplejson',
-    'nose',
-    'python-hostlist',
-    'prettytable',
-    'pytimeparse',
-    ]
+version = "1.1"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
