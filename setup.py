@@ -91,16 +91,16 @@ class UploadToPypi(install):
     """Upload the package to pypi."""
     def run(self):
         os.system("Make clean Install")
-        os.system("python setup.py.in install")
+        os.system("python setup.py install")
         banner("Build Distribution")
-        os.system("python setup.py.in sdist --format=bztar,zip upload")
+        os.system("python setup.py sdist --format=bztar,zip upload")
 
 
 class RegisterWithPypi(install):
     """Upload the package to pypi."""
     def run(self):
         banner("Register with Pypi")
-        os.system("python setup.py.in register")
+        os.system("python setup.py register")
 
 
 class InstallBase(install):
