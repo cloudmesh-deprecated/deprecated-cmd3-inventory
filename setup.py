@@ -126,7 +126,7 @@ class InstallAll(install):
         install.run(self)
 
 setup(
-    name='MODULE',
+    name='cloudmesh_inventory',
     version=version,
     description='A set of simple base functions and classes useful for cloudmesh and other programs',
     # description-file =
