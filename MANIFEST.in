@@ -1,0 +1,8 @@
+include AUTHORS
+include ChangeLog
+exclude .gitignore
+exclude .gitreview
+include requirements.txt
+include cloudmesh_system/etc/*.yaml
+
+global-exclude *.pyc

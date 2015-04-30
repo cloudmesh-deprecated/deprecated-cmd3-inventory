@@ -3,15 +3,21 @@ import os
 from cmd3.console import Console
 from cmd3.shell import command
 
+
 from cloudmesh_system.command_system import command_system
+from cloudmesh_system.command_system import inventory
 import hostlist
 from pprint import pprint
+from cloudmesh_base.locations import config_file
 
+# TODO: delete row
+# TODO: add columns
+# TODO: ATTRIBUTE=VALUE
 
 class cm_shell_system:
 
     def activate_cm_shell_system(self):
-        self.register_command_topic('mycommands', 'system')
+        self.register_command_topic('inventory', 'system')
 
     @command
     def do_system(self, args, arguments):
@@ -24,14 +30,17 @@ class cm_shell_system:
                                [--project=PROJECT]
                                [--owners=OWNERS]
                                [--comment=COMMENT]
+                               [--cluster=CLUSTER]
+                               [--ip=IP]
               system list [NAMES] [--format=FORMAT]
+              system info
 
           Arguments:
 
             NAMES     Name of the resources (example i[10-20])
 
             FORMAT    The format of the output is either txt,
-                      yaml, json, table [default=table].
+                      yaml, dict, table [defaults: table].
 
             OWNERS    a comma separated list of owners for this resource
 
@@ -55,19 +64,37 @@ class cm_shell_system:
 
             
         """
-        pprint(arguments)
+        # pprint(arguments)
+        filename = config_file("/cloudmesh_system.yaml")
 
-        if arguments["NAMES"] is None:
+        sorted_keys = True
+        if arguments["info"]:
+            i = inventory()
+            i.read()
+            i.info()
+        elif arguments["list"]:
+            i = inventory()
+            i.read()
+            print(i.list())
+        elif arguments["NAMES"] is None:
             Console.error("Please specify a host name")
-        else:
+        elif arguments["add"]:
             hosts = hostlist.expand_hostlist(arguments["NAMES"])            
-            Console.info("Hosts {0}".format(str(hosts)))
-            # status = command_system.status(host)
-            #if status:
-            #    Console.info("machine " + host + " has been found. ok.")
-            #else:
-            #    Console.error("machine " + host + " not reachable. error.")
-        pass
+            i = inventory()
+            i.read()
+            element = {}
+
+            for attribute in i.order:
+                try:
+                    value = arguments["--" + attribute]
+                    if value is not None:
+                        element[attribute] = value
+                except:
+                    pass
+            element['host'] = arguments["NAMES"]
+            i.add(**element)
+            print (i.list(format="table"))
+
 
 if __name__ == '__main__':
     command = cm_shell_system()

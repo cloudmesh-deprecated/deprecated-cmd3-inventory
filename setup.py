@@ -34,12 +34,57 @@ from cloudmesh_base.util import auto_create_version
 from cloudmesh_base.util import auto_create_requirements
 
 
-banner("Installing Cloudmesh " + package_name)
+banner("Installing Cloudmesh System" + package_name)
+
+def parse_requirements(filename):
+    """ load requirements from a pip requirements file """
+    lineiter = (line.strip() for line in open(filename))
+    return [line for line in lineiter if line and not line.startswith("#")]
+
+
+
+requirements = parse_requirements('requirements.txt')
 
 home = os.path.expanduser("~")
 
 auto_create_version(package_name, version)
-auto_create_requirements(requirements)
+
+
+data_files= [ (home + '/.cloudmesh/' + d.lstrip('cloudmesh_system/'),
+                [os.path.join(d, f) for f in files]) for d, folders, files in os.walk('cloudmesh_system/etc')]
+
+
+import fnmatch
+import os
+
+matches = []
+for root, dirnames, filenames in os.walk('cloudmesh_system/etc'):
+  for filename in fnmatch.filter(filenames, '*'):
+    matches.append(os.path.join(root, filename).lstrip('cloudmesh_system/'))
+data_dirs = matches
+
+
+class SetupYaml(install):
+    """Copies a cloudmesh_system yaml file to ~/.cloudmesh."""
+
+    description = __doc__
+
+    def run(self):
+        banner("Setup the cloudmesh_system.yaml file")
+
+        cloudmesh_system_yaml = path_expand("~/.cloudmesh/cloudmesh_system.yaml")
+
+        if os.path.isfile(cloudmesh_system_yaml):
+            print ("ERROR: the file {0} already exists".format(cloudmesh_system_yaml))
+            print
+            print ("If you like to reinstall it, please remove the file")
+        else:
+            print ("Copy file:  {0} -> {1} ".format(path_expand("etc/cloudmesh_system.yaml"), cloudmesh_system_yaml))
+            Shell.mkdir("~/.cloudmesh")
+
+            shutil.copy("etc/cloudmesh_system.yaml",
+                        path_expand("~/.cloudmesh/cloudmesh_system.yaml"))
+
 
 
 class UploadToPypi(install):
@@ -111,12 +156,16 @@ setup(
     ],
     packages=find_packages(),
     install_requires=requirements,
+    include_package_data=True,
+    data_files= data_files,
+    package_data={'cloudmesh_system': data_dirs},
     cmdclass={
         'install': InstallBase,
         'requirements': InstallRequirements,
         'all': InstallAll,
         'pypi': UploadToPypi,
         'pypiregister': RegisterWithPypi,
+        'yaml': SetupYaml,
         },
 )
 
