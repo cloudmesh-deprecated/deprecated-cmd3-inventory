@@ -95,11 +95,13 @@ class inventory(object):
                 self.data[host][attribute] = entry[attribute]
         self.save()
 
-    def list(self, format='dict', sort_keys=True):
-        header = ['Id'] +  self.order
+    def list(self, format='dict', sort_keys=True, order=None):
+        if order is None:
+            order = self.order
+        header = ['Id'] +  order
         return dict_printer(self.data,
                             header=header,
-                            order=self.order,
+                            order=order,
                             output=format,
                             sort_keys=sort_keys)
 

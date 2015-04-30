@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.1"
+version = "1.2"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install

@@ -29,7 +29,8 @@ class cm_shell_inventory:
                                   [--comment=COMMENT]
                                   [--cluster=CLUSTER]
                                   [--ip=IP]
-              inventory list [NAMES] [--format=FORMAT]
+              inventory NAMES set ATTRIBUTE to VALUE
+              inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
               inventory info
 
           Arguments:
@@ -37,7 +38,7 @@ class cm_shell_inventory:
             NAMES     Name of the resources (example i[10-20])
 
             FORMAT    The format of the output is either txt,
-                      yaml, dict, table [defaults: table].
+                      yaml, dict, table [default: table].
 
             OWNERS    a comma separated list of owners for this resource
 
@@ -81,7 +82,27 @@ class cm_shell_inventory:
         elif arguments["list"]:
             i = inventory()
             i.read()
-            print(i.list())
+            order = arguments["--columns"].split(",")
+            print (order)
+            print(i.list(format="table", order=order))
+        elif arguments["set"]:
+            print (arguments)
+            hosts = hostlist.expand_hostlist(arguments["NAMES"])
+            i = inventory()
+            i.read()
+            element = {}
+
+            for attribute in i.order:
+                try:
+                    attribute = arguments["ATTRIBUTE"]
+                    value = arguments["VALUE"]
+                    if value is not None:
+                        element[attribute] = value
+                except:
+                    pass
+            element['host'] = arguments["NAMES"]
+            i.add(**element)
+            print (i.list(format="table"))
         elif arguments["NAMES"] is None:
             Console.error("Please specify a host name")
         elif arguments["add"]:
