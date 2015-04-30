@@ -31,6 +31,7 @@ class cm_shell_inventory:
                                   [--ip=IP]
               inventory NAMES set ATTRIBUTE to VALUE
               inventory delete NAMES
+              inventory clone NAMES from SOURCE
               inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
               inventory info
 
@@ -48,6 +49,8 @@ class cm_shell_inventory:
             SERVICE   a string that identifies the service
 
             PROJECT   a string that identifies the project
+
+            SOURCE    a single host name to clone from
 
             COMMENT   a comment
             
@@ -131,6 +134,22 @@ class cm_shell_inventory:
             for host in hosts:
                 del i.data[host]
             i.save()
+        elif arguments["clone"]:
+            hosts = hostlist.expand_hostlist(arguments["NAMES"])
+            source = arguments["SOURCE"]
+
+
+            i = inventory()
+            i.read()
+
+            if source in i.data:
+
+
+                for host in hosts:
+                    i.data[host] = dict(i.data[source])
+                i.save()
+            else:
+                Console.error("The source {:} does not exist".format(source))
 
 if __name__ == '__main__':
     command = cm_shell_inventory()
