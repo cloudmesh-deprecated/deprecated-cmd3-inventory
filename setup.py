@@ -133,7 +133,7 @@ setup(
     #    README.rst
     author='The Cloudmesh Team',
     author_email='laszewski@gmail.com',
-    url='http://github.org/cloudmesh/base',
+    url='http://github.org/cloudmesh/inventory',
     classifiers=[
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
