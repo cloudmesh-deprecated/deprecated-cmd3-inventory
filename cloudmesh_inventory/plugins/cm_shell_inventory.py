@@ -30,6 +30,7 @@ class cm_shell_inventory:
                                   [--cluster=CLUSTER]
                                   [--ip=IP]
               inventory NAMES set ATTRIBUTE to VALUE
+              inventory delete NAMES
               inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
               inventory info
 
@@ -60,6 +61,8 @@ class cm_shell_inventory:
 
             list -- lists the resources in the given format
 
+            delete -- deletes objects from the table
+
           Examples:
 
             cm inventory add x[0-3] --service=openstack
@@ -85,8 +88,9 @@ class cm_shell_inventory:
             order = arguments["--columns"].split(",")
             print (order)
             print(i.list(format="table", order=order))
+        elif arguments["NAMES"] is None:
+            Console.error("Please specify a host name")
         elif arguments["set"]:
-            print (arguments)
             hosts = hostlist.expand_hostlist(arguments["NAMES"])
             i = inventory()
             i.read()
@@ -103,8 +107,6 @@ class cm_shell_inventory:
             element['host'] = arguments["NAMES"]
             i.add(**element)
             print (i.list(format="table"))
-        elif arguments["NAMES"] is None:
-            Console.error("Please specify a host name")
         elif arguments["add"]:
             hosts = hostlist.expand_hostlist(arguments["NAMES"])            
             i = inventory()
@@ -121,7 +123,14 @@ class cm_shell_inventory:
             element['host'] = arguments["NAMES"]
             i.add(**element)
             print (i.list(format="table"))
+        elif arguments["delete"]:
+            hosts = hostlist.expand_hostlist(arguments["NAMES"])
+            i = inventory()
+            i.read()
 
+            for host in hosts:
+                del i.data[host]
+            i.save()
 
 if __name__ == '__main__':
     command = cm_shell_inventory()
