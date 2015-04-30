@@ -1,23 +1,20 @@
 from __future__ import print_function
-import os
 from cmd3.console import Console
 from cmd3.shell import command
 
 
-from cloudmesh_system.command_system import command_system
-from cloudmesh_system.command_system import inventory
+from cloudmesh_inventory.command_inventory import inventory
 import hostlist
-from pprint import pprint
 from cloudmesh_base.locations import config_file
 
 # TODO: delete row
 # TODO: add columns
 # TODO: ATTRIBUTE=VALUE
 
-class cm_shell_system:
+class cm_shell_inventory:
 
-    def activate_cm_shell_system(self):
-        self.register_command_topic('inventory', 'system')
+    def activate_cm_shell_inventory(self):
+        self.register_command_topic('system', 'inventory')
 
     @command
     def do_system(self, args, arguments):
@@ -74,7 +71,7 @@ class cm_shell_system:
                 lists the repository
         """
         # pprint(arguments)
-        filename = config_file("/cloudmesh_system.yaml")
+        filename = config_file("/cloudmesh_inventory.yaml")
 
         sorted_keys = True
         if arguments["info"]:
@@ -106,6 +103,5 @@ class cm_shell_system:
 
 
 if __name__ == '__main__':
-    command = cm_shell_system()
+    command = cm_shell_inventory()
     command.do_system("iu.edu")
-    #command.do_system("iu.edu-wrong")

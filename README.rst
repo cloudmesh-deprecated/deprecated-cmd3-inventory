@@ -34,7 +34,7 @@ From Source
     python setup.py install
     cd ..
 
-    git clone https://github.com/cloudmesh/system.git
+    git clone https://github.com/cloudmesh/inventory.git
     cd cmd3
     python setup.py install
     cd ..
@@ -44,7 +44,7 @@ Configuration
 
 Your inventory will be located at
 
-    ~/.cloudmesh/cloudmesh_inventory.yaml
+    ~/.cloudmesh/inventory.yaml
 
 You can also change the yaml file by hand, but the
 cm command is more convenient.

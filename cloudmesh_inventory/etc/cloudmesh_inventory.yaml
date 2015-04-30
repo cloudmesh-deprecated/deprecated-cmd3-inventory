@@ -6,4 +6,4 @@ meta:
     prefix: null
 cloudmesh:
    system:
-      data: ${HOME}/.cloudmesh/cloudmesh_inventory.yaml
+      data: ${HOME}/.cloudmesh/inventory.yaml

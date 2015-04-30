@@ -52,7 +52,7 @@ class inventory(object):
 
         self.data = {}
 
-        self.config_filename = config_file("/cloudmesh_system.yaml")
+        self.config_filename = config_file("/cloudmesh_inventory.yaml")
         self.config = ConfigDict(filename=self.config_filename)
 
         self.datafile = self.config.get("cloudmesh.system.data")
