@@ -17,20 +17,20 @@ class cm_shell_inventory:
         self.register_command_topic('system', 'inventory')
 
     @command
-    def do_system(self, args, arguments):
+    def do_inventory(self, args, arguments):
         """
         ::
 
           Usage:
-              system add NAMES [--label=LABEL]
-                               [--service=SERVICES]
-                               [--project=PROJECT]
-                               [--owners=OWNERS]
-                               [--comment=COMMENT]
-                               [--cluster=CLUSTER]
-                               [--ip=IP]
-              system list [NAMES] [--format=FORMAT]
-              system info
+              inventory add NAMES [--label=LABEL]
+                                  [--service=SERVICES]
+                                  [--project=PROJECT]
+                                  [--owners=OWNERS]
+                                  [--comment=COMMENT]
+                                  [--cluster=CLUSTER]
+                                  [--ip=IP]
+              inventory list [NAMES] [--format=FORMAT]
+              inventory info
 
           Arguments:
 
@@ -55,13 +55,13 @@ class cm_shell_inventory:
 
           Description:
           
-            add -- adds a system resource to the resource inventory
+            add -- adds a resource to the resource inventory
 
             list -- lists the resources in the given format
 
           Examples:
 
-            cm system add x[0-3] --service=openstack
+            cm inventory add x[0-3] --service=openstack
 
                 adds hosts x0, x1, x2, x3 and puts the string
                 openstack into the service column
