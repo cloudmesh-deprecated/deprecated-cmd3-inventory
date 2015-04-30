@@ -62,7 +62,16 @@ class cm_shell_system:
 
             list -- lists the resources in the given format
 
-            
+          Examples:
+
+            cm system add x[0-3] --service=openstack
+
+                adds hosts x0, x1, x2, x3 and puts the string
+                openstack into the service column
+
+            cm lits
+
+                lists the repository
         """
         # pprint(arguments)
         filename = config_file("/cloudmesh_system.yaml")
