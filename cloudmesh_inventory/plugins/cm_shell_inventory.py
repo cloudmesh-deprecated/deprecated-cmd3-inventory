@@ -30,6 +30,7 @@ class cm_shell_inventory:
                                   [--cluster=CLUSTER]
                                   [--ip=IP]
               inventory NAMES set ATTRIBUTE to VALUE
+              inventory NAMES map ATTRIBUTE to VALUES
               inventory delete NAMES
               inventory clone NAMES from SOURCE
               inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
@@ -97,6 +98,34 @@ class cm_shell_inventory:
             hosts = hostlist.expand_hostlist(arguments["NAMES"])
             i = inventory()
             i.read()
+            element = {}
+
+            for attribute in i.order:
+                try:
+                    attribute = arguments["ATTRIBUTE"]
+                    value = arguments["VALUE"]
+                    if value is not None:
+                        element[attribute] = value
+                except:
+                    pass
+            element['host'] = arguments["NAMES"]
+            i.add(**element)
+            print (i.list(format="table"))
+        elif arguments["map"]:
+            hosts = hostlist.expand_hostlist(arguments["NAMES"])
+            values = hostlist.expand_hostlist(arguments["VALUES"])
+            attribute = arguments["ATTRIBUTE"]
+            if len(hosts) != len(values):
+                Console.error("Number of names {:} != number of values{:}".format(len(hosts), len(values)))
+
+            i = inventory()
+            i.read()
+
+            for i in range(0,len(hosts)):
+                host = host[i]
+                value = values[i]
+                i.data[host][attribute] = value
+
             element = {}
 
             for attribute in i.order:
