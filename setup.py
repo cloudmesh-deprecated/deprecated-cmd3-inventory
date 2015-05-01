@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.2.3"
+version = "1.2.5"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -71,6 +71,10 @@ class SetupYaml(install):
             shutil.copy("etc/cloudmesh_inventory.yaml",
                         path_expand("~/.cloudmesh/cloudmesh_inventory.yaml"))
 
+class SetupManpage(install):
+    """Upload the package to pypi."""
+    def run(self):
+        os.system("cm help inventory > MAN.in.rst")
 
 
 class UploadToPypi(install):
@@ -111,7 +115,19 @@ class InstallAll(install):
         banner("Installing Cloudmesh " + package_name)
         install.run(self)
 
-readme = open('README.rst', 'r').read()
+def create_readme():
+    banner("create readme")
+    readme = open('README.in.rst', 'r').read()
+    manpage = open('MAN.in.rst', 'r').read()
+
+    readme = readme + "\n" + manpage
+
+    with open('README.rst', 'w') as f:
+         f.write(readme)
+
+    return readme
+
+readme = create_readme()
 
 setup(
     name='cloudmesh_inventory',
@@ -153,6 +169,7 @@ setup(
         'pypi': UploadToPypi,
         'pypiregister': RegisterWithPypi,
         'yaml': SetupYaml,
+        'man': SetupManpage,
         },
 )
 
