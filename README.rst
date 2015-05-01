@@ -1,5 +1,5 @@
 A Simple Cloudmesh Inventory
-===========================
+============================
 
 
 Sometimes its necessary to maintain a simple inventory.
@@ -71,7 +71,10 @@ Edit the file ~/.cloudmesh/cmd3.yaml and add to the plugin list:
 Manpage
 --------
 
+::
+   
   Usage:
+  
       inventory add NAMES [--label=LABEL]
                           [--service=SERVICES]
                           [--project=PROJECT]
@@ -86,7 +89,7 @@ Manpage
       inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
       inventory info
 
-  Arguments:
+  Arguments::
 
     NAMES     Name of the resources (example i[10-20])
 
