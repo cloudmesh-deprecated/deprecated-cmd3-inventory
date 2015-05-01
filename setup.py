@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.2.5"
+version = "1.2.6"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -117,6 +117,7 @@ class InstallAll(install):
 
 def create_readme():
     banner("create readme")
+    os.system("cm help inventory > MAN.in.rst")
     readme = open('README.in.rst', 'r').read()
     manpage = open('MAN.in.rst', 'r').read()
 

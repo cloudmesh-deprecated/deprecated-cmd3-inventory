@@ -116,11 +116,22 @@ Manpage
 
   Description:
 
-    add -- adds a resource to the resource inventory
+        add -- adds a resource to the resource inventory
 
-    list -- lists the resources in the given format
+        list -- lists the resources in the given format
 
-    delete -- deletes objects from the table
+        delete -- deletes objects from the table
+
+        clone -- copies the content of an existing object
+                 and creates new once with it
+
+        set   -- sets for the specified objects the attribute
+                 to the given value or values. If multiple values
+                 are used the values are assigned to the and
+                 objects in order. See examples
+
+        map   -- allows to set attibutes on a set of objects
+                 with a set of values
 
   Examples:
 
@@ -132,4 +143,19 @@ Manpage
     cm lits
 
         lists the repository
+
+    cm x[3-4] set temperature to 32
+
+        sets for the resources x3, x4 the value of the
+        temperature to 32
+
+    cm x[7-8] set ip 128.0.0.[0-1]
+
+        sets the value of x7 to 128.0.0.0
+        sets the value of x8 to 128.0.0.1
+
+    cm clone x[5-6] from x3
+
+        clones the values for x5, x6 from x3
+
 
