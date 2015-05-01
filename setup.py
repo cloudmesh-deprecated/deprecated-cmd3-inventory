@@ -112,12 +112,13 @@ class InstallAll(install):
         banner("Installing Cloudmesh " + package_name)
         install.run(self)
 
+readme = open('README.rst', 'r')
+
 setup(
     name='cloudmesh_inventory',
     version=version,
     description='A set of simple inventory that manages compute resources in a table.',
-    description-file =
-        README.rst
+    long_description = readme,
     author='The Cloudmesh Team',
     author_email='laszewski@gmail.com',
     url='http://github.org/cloudmesh/inventory',

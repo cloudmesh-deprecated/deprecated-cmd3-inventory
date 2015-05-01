@@ -10,12 +10,17 @@ its is of advantage to do this from the commandline.
 We have written such a tool that lets you easily manage the
 resources in a table format.
 
+
 Installation
 ---------------
 
-From Pip
+Make sure you have a new version of python. We use 2.7.9. Make sure to
+have a new version of pip. We use 6.1.1
 
-    we have not yet uploaded the code to pypi
+From Pip::
+
+  pip install cmd3
+  pip install cloudmesh_inventory
 
 From Source
 
@@ -53,28 +58,40 @@ This location can be changed in the file
 
     ~/.cloudmesh/cloudmesh_system.yaml
 
+If you have not yet created a cmd3.yaml file you can
+do this with::
+
+  cm setup_yaml
+
+Edit the file ~/.cloudmesh/cmd3.yaml and add to the plugin list:
+
+  - cloudmesh_inventory.plugin
+
 
 Manpage
 --------
 
-
   Usage:
-      system add NAMES [--label=LABEL]
-                       [--service=SERVICES]
-                       [--project=PROJECT]
-                       [--owners=OWNERS]
-                       [--comment=COMMENT]
-                       [--cluster=CLUSTER]
-                       [--ip=IP]
-      system list [NAMES] [--format=FORMAT]
-      system info
+      inventory add NAMES [--label=LABEL]
+                          [--service=SERVICES]
+                          [--project=PROJECT]
+                          [--owners=OWNERS]
+                          [--comment=COMMENT]
+                          [--cluster=CLUSTER]
+                          [--ip=IP]
+      inventory NAMES set ATTRIBUTE to VALUE
+      inventory NAMES map ATTRIBUTE to VALUES
+      inventory delete NAMES
+      inventory clone NAMES from SOURCE
+      inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
+      inventory info
 
   Arguments:
 
     NAMES     Name of the resources (example i[10-20])
 
     FORMAT    The format of the output is either txt,
-              yaml, dict, table [defaults: table].
+              yaml, dict, table [default: table].
 
     OWNERS    a comma separated list of owners for this resource
 
@@ -84,6 +101,8 @@ Manpage
 
     PROJECT   a string that identifies the project
 
+    SOURCE    a single host name to clone from
+
     COMMENT   a comment
 
   Options:
@@ -92,13 +111,15 @@ Manpage
 
   Description:
 
-    add -- adds a system resource to the resource inventory
+    add -- adds a resource to the resource inventory
 
     list -- lists the resources in the given format
 
+    delete -- deletes objects from the table
+
   Examples:
 
-    cm system add x[0-3] --service=openstack
+    cm inventory add x[0-3] --service=openstack
 
         adds hosts x0, x1, x2, x3 and puts the string
         openstack into the service column
