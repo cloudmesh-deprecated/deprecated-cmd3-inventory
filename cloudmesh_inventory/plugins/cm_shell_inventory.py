@@ -84,7 +84,7 @@ class cm_shell_inventory:
                 adds hosts x0, x1, x2, x3 and puts the string
                 openstack into the service column
 
-            cm lits
+            cm lists
 
                 lists the repository
 
