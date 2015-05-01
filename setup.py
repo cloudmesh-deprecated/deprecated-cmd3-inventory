@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.2.10"
+version = "1.2.11"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -114,6 +114,13 @@ class IncrVersion(install):
         os.system("cm-incr-version setup.py")
 
 
+class TagVersion(install):
+    """Install the requirements."""
+    def run(self):
+        banner("Tag Version for Cloudmesh " + package_name)
+        os.system("cm-incr-version setup.py tag")
+
+
 class InstallAll(install):
     """Install requirements and the package."""
     def run(self):
@@ -178,7 +185,8 @@ setup(
         'pypiregister': RegisterWithPypi,
         'yaml': SetupYaml,
         'man': SetupManpage,
-        'incr': IncrVesrion,
+        'incr': IncrVersion,
+        'tag': TabVersion,
         },
 )
 
