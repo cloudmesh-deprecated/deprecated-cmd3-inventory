@@ -186,7 +186,7 @@ setup(
         'yaml': SetupYaml,
         'man': SetupManpage,
         'incr': IncrVersion,
-        'tag': TabVersion,
+        'tag': TagVersion,
         },
 )
 
