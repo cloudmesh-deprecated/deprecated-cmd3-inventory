@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.2.1"
+version = "1.2.2"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -112,7 +112,7 @@ class InstallAll(install):
         banner("Installing Cloudmesh " + package_name)
         install.run(self)
 
-readme = open('README.rst', 'r')
+readme = open('README.rst', 'r').read()
 
 setup(
     name='cloudmesh_inventory',
