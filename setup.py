@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.2"
+version = "1.2.1"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -115,9 +115,9 @@ class InstallAll(install):
 setup(
     name='cloudmesh_inventory',
     version=version,
-    description='A set of simple base functions and classes useful for cloudmesh and other programs',
-    # description-file =
-    #    README.rst
+    description='A set of simple inventory that manages compute resources in a table.',
+    description-file =
+        README.rst
     author='The Cloudmesh Team',
     author_email='laszewski@gmail.com',
     url='http://github.org/cloudmesh/inventory',
