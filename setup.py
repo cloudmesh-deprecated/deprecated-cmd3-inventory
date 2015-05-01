@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-version = "1.2.6"
+version = "1.2.8"
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install

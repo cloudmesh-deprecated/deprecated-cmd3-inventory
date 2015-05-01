@@ -114,8 +114,10 @@ class cm_shell_inventory:
         elif arguments["list"]:
             i = inventory()
             i.read()
-            order = arguments["--columns"].split(",")
-            print (order)
+            if arguments["--columns"]:
+                order = arguments["--columns"].split(",")
+            else:
+                order = i.order
             print(i.list(format="table", order=order))
         elif arguments["NAMES"] is None:
             Console.error("Please specify a host name")
